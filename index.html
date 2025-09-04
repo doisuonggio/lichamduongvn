@@ -1,50 +1,105 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lịch Âm Dương VN - Coming Soon</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lịch Âm Dương VN — Xem lịch âm/dương & giờ tốt</title>
 
-  <!-- Favicon -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <!-- SEO -->
-  <meta name="description" content="Ứng dụng Lịch Âm Dương VN: xem lịch âm - dương chuẩn xác, giờ tốt, triều cường. Miễn phí, không quảng cáo lố. Coming soon!">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Lịch Âm Dương VN - Coming Soon">
-  <meta property="og:description" content="Ứng dụng Lịch Âm Dương VN: xem lịch âm - dương chuẩn xác, giờ tốt, triều cường. Miễn phí, không quảng cáo lố.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lichamduongvn.com">
-  <meta property="og:image" content="https://lichamduongvn.com/og-image.png">
+  <!-- SEO / OpenGraph -->
+  <meta name="description" content="Lịch Âm Dương VN — xem lịch âm/dương chuẩn, tháng/năm dạng bảng, giờ tốt, tiết khí, triều cường.">
+  <meta property="og:title" content="Lịch Âm Dương VN"/>
+  <meta property="og:description" content="Xem lịch âm/dương chuẩn, tra cứu ngày, giờ tốt, triều cường.">
+  <meta property="og:image" content="https://lichamduongvn.com/og-image.png" />
+  <meta property="og:type" content="website"/>
 
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="container">
-    <h1>Lịch Âm Dương VN</h1>
-    <p class="slogan">Xem lịch âm – dương chuẩn tuyệt đối, giờ tốt, triều cường<br>Miễn phí, dễ dùng, Coming Soon!</p>
+  <div id="page">
+    <header class="topbar">
+      <div class="brand">
+        <img src="favicon-32x32.png" alt="logo" class="logo"/>
+        <div>
+          <h1>Lịch Âm Dương VN</h1>
+          <div class="tag">Chuẩn, nhanh, miễn phí</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="todayBtn" class="btn small">Hôm nay</div>
+        <div class="btn small" id="subscribeToggle">Đăng ký</div>
+      </div>
+    </header>
 
-    <div class="mockup">
-      <img src="https://via.placeholder.com/300x600?text=App+Mockup" alt="App mockup">
-    </div>
+    <main class="layout">
+      <aside class="ad ad-left">
+        <!-- Placeholder ad left -->
+        <div class="ad-placeholder">Quảng cáo (trái)</div>
+      </aside>
 
-    <form id="subscribe-form" action="https://formspree.io/f/mwkzrqkb" method="POST">
-      <input type="email" name="email" placeholder="Nhập email để nhận thông báo" required>
-      <button type="submit">Đăng ký</button>
-    </form>
-    <p id="form-message"></p>
+      <section class="content">
+        <div class="panel">
+          <div class="calendar-header">
+            <div class="nav">
+              <button id="prevMonth" class="btn">‹</button>
+              <div class="month-year" id="monthYearLabel"></div>
+              <button id="nextMonth" class="btn">›</button>
+            </div>
+            <div class="controls">
+              <select id="selectYear"></select>
+              <select id="selectMonth"></select>
+            </div>
+          </div>
 
-    <footer>
-      <p>&copy; 2025 Lịch Âm Dương VN. All rights reserved.</p>
-      <p>Liên hệ: <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></p>
+          <div id="calendar" class="calendar-grid"></div>
+        </div>
+
+        <div id="dayDetail" class="panel detail-panel hidden">
+          <h3 id="detailDate"></h3>
+          <div id="detailLunar"></div>
+          <div id="detailCanChi"></div>
+          <div id="detailTide"></div>
+          <div id="detailNotes"></div>
+          <div class="close-detail btn" id="closeDetail">Đóng</div>
+        </div>
+
+        <div class="panel about">
+          <h2>Giới thiệu</h2>
+          <p>Ứng dụng/website Lịch Âm Dương VN cung cấp lịch âm/dương dạng bảng (toàn tháng), thông tin Can–Chi, giờ tốt cơ bản, tiết khí và triều cường tham khảo cho các trạm Sài Gòn, Cần Thơ, Vũng Tàu.</p>
+          <div class="features">
+            <div class="card"><strong>Âm - Dương</strong><p>Chuyển đổi Dương → Âm, tháng nhuận.</p></div>
+            <div class="card"><strong>Giờ tốt</strong><p>Giờ hoàng đạo cơ bản cho từng ngày.</p></div>
+            <div class="card"><strong>Triều cường</strong><p>Thông tin triều: mẫu cho 3 trạm (sẽ cập nhật hệ số chính xác sau).</p></div>
+          </div>
+        </div>
+
+        <div class="panel subscribe-panel hidden" id="subscribePanel">
+          <h3>Nhận thông báo khi app ra mắt</h3>
+          <form id="subscribe-form" action="https://formspree.io/f/mwkzrqkb" method="POST">
+            <input type="email" name="email" placeholder="Email của bạn" required>
+            <button type="submit" class="btn">Đăng ký</button>
+          </form>
+          <p id="subscribeMsg"></p>
+        </div>
+      </section>
+
+      <aside class="ad ad-right">
+        <!-- Placeholder ad right -->
+        <div class="ad-placeholder">Quảng cáo (phải)</div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div>© 2009  Lịch Âm Dương VN — <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></div>
+      <div class="small">Dữ liệu triều là mẫu. Để có dữ liệu trạm chuẩn, dựa vào hằng số harmonic chính thức.</div>
     </footer>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
