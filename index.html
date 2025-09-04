@@ -38,11 +38,11 @@
 
     <main class="layout">
       <aside class="ad ad-left">
-        <!-- Placeholder ad left -->
         <div class="ad-placeholder">Quảng cáo (trái)</div>
       </aside>
 
       <section class="content">
+        <!-- Lịch âm/dương dạng bảng -->
         <div class="panel">
           <div class="calendar-header">
             <div class="nav">
@@ -55,7 +55,6 @@
               <select id="selectMonth"></select>
             </div>
           </div>
-
           <div id="calendar" class="calendar-grid"></div>
         </div>
 
@@ -68,16 +67,52 @@
           <div class="close-detail btn" id="closeDetail">Đóng</div>
         </div>
 
+        <!-- Khung chuyển đổi Dương ↔ Âm -->
+        <div class="panel convert-panel">
+          <h2>Chuyển đổi ngày tháng</h2>
+          <div class="conversion-tabs">
+            <button id="tabSolar" class="btn small active">Dương → Âm</button>
+            <button id="tabLunar" class="btn small">Âm → Dương</button>
+          </div>
+
+          <div id="solarForm" class="form">
+            <label>Ngày Dương:
+              <input type="date" id="solarDateInput">
+            </label>
+            <button class="btn small" id="convertToLunar">Chuyển đổi</button>
+            <p id="solarResult"></p>
+          </div>
+
+          <div id="lunarForm" class="form hidden">
+            <label>Ngày:
+              <input type="number" id="lunarDay" min="1" max="30">
+            </label>
+            <label>Tháng:
+              <input type="number" id="lunarMonth" min="1" max="12">
+            </label>
+            <label>Năm:
+              <input type="number" id="lunarYear" value="2025">
+            </label>
+            <label>
+              <input type="checkbox" id="lunarLeap"> Tháng nhuận
+            </label>
+            <button class="btn small" id="convertToSolar">Chuyển đổi</button>
+            <p id="lunarResult"></p>
+          </div>
+        </div>
+
+        <!-- Giới thiệu & tính năng -->
         <div class="panel about">
           <h2>Giới thiệu</h2>
           <p>Ứng dụng/website Lịch Âm Dương VN cung cấp lịch âm/dương dạng bảng (toàn tháng), thông tin Can–Chi, giờ tốt cơ bản, tiết khí và triều cường tham khảo cho các trạm Sài Gòn, Cần Thơ, Vũng Tàu.</p>
           <div class="features">
             <div class="card"><strong>Âm - Dương</strong><p>Chuyển đổi Dương → Âm, tháng nhuận.</p></div>
             <div class="card"><strong>Giờ tốt</strong><p>Giờ hoàng đạo cơ bản cho từng ngày.</p></div>
-            <div class="card"><strong>Triều cường</strong><p>Thông tin triều: mẫu cho 3 trạm (sẽ cập nhật hệ số chính xác sau).</p></div>
+            <div class="card"><strong>Triều cường</strong><p>Thông tin triều: mẫu cho 3 trạm.</p></div>
           </div>
         </div>
 
+        <!-- Subscribe panel -->
         <div class="panel subscribe-panel hidden" id="subscribePanel">
           <h3>Nhận thông báo khi app ra mắt</h3>
           <form id="subscribe-form" action="https://formspree.io/f/mwkzrqkb" method="POST">
@@ -89,13 +124,12 @@
       </section>
 
       <aside class="ad ad-right">
-        <!-- Placeholder ad right -->
         <div class="ad-placeholder">Quảng cáo (phải)</div>
       </aside>
     </main>
 
     <footer class="footer">
-      <div>© 2009  Lịch Âm Dương VN — <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></div>
+      <div>© 2009–2025 Lịch Âm Dương VN — <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></div>
       <div class="small">Dữ liệu triều là mẫu. Để có dữ liệu trạm chuẩn, dựa vào hằng số harmonic chính thức.</div>
     </footer>
   </div>
