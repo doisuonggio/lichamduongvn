@@ -66,59 +66,63 @@ const SunLongitude = (jdn) => {
 const lunarGet = (jd) => {
   const A = 2415021.076998695;
   const B = 29.530588853;
-  const D = (jd - A) / B;
-  let K = Math.floor(D);
-  let P = NewMoon(K + 1);
-  let Dd = Math.round(jd - Math.floor(NewMoon(K) + 0.5)) + 1;
-  let Lm, Ly, isLeap;
+  let k = Math.floor((jd - A) / B);
+  let jdn_new_moon_prev = NewMoon(k);
+  let jdn_new_moon_next = NewMoon(k + 1);
 
-  const getMonthOfJd = (jd) => {
-    const jdn = Math.floor(jd) + 0.5;
-    let month;
-    for (let m = 11; m <= 24; m++) {
-      const nm = NewMoon(K - 12 + m);
-      const nm_next = NewMoon(K - 12 + m + 1);
-      if (jdn >= nm && jdn < nm_next) {
-        month = m % 12 === 0 ? 12 : m % 12;
-        break;
-      }
-    }
-    return month;
-  };
-
-  Lm = getMonthOfJd(jd);
-  const { year: solarYear } = jdToDate(jd);
-
-  let lyStart = solarYear - 1;
-  while (true) {
-    const jdn = NewMoon(Math.floor(0.5 + (jdFromDate(1, 1, lyStart) - A) / B) + 12);
-    if (jdn > jd) {
-      Ly = lyStart - 1;
-      break;
-    }
-    lyStart++;
+  while (jd < Math.floor(jdn_new_moon_prev + 0.5) + 1) {
+    k--;
+    jdn_new_moon_prev = NewMoon(k);
+  }
+  while (jd >= Math.floor(jdn_new_moon_next + 0.5) + 1) {
+    k++;
+    jdn_new_moon_next = NewMoon(k);
   }
 
+  const lunarDay = Math.round(jd - Math.floor(jdn_new_moon_prev + 0.5)) + 1;
+  const { year: solarYear } = jdToDate(jd);
+
+  let ly = solarYear;
+  let lm = 1;
+  let isLeap = false;
+  
   const getLeapMonth = (lunarYear) => {
-    const k = Math.floor(0.5 + (jdFromDate(1, 1, lunarYear) - A) / B) + 12;
-    const M11 = NewMoon(k);
-    const M12 = NewMoon(k + 1);
-    const M13 = NewMoon(k + 2);
-    const L11 = SunLongitude(M11);
-    const L12 = SunLongitude(M12);
-    const L13 = SunLongitude(M13);
-    const numSolarMonths = Math.floor((L13 - L11) / 30);
-    if (numSolarMonths === 1) return 0;
-    for (let i = 0; i < 13; i++) {
-      const Li = SunLongitude(NewMoon(k + i));
-      if (Li > 30 * i && Li < 30 * (i + 1)) return i;
+    const startJd = jdFromDate(1, 1, lunarYear);
+    let kStart = Math.floor((startJd - A) / B);
+    let i = 0;
+    while(true){
+      let month_jdn_start = NewMoon(kStart + i);
+      let month_jdn_end = NewMoon(kStart + i + 1);
+      const l_start = SunLongitude(month_jdn_start);
+      const l_end = SunLongitude(month_jdn_end);
+      if (Math.floor(l_end / 30) === Math.floor(l_start / 30)) {
+        return (i + 1);
+      }
+      i++;
+      if (i > 15) return 0;
     }
-    return 0;
   };
 
-  isLeap = Lm === getLeapMonth(Ly);
+  const getLunarMonthYear = (jd) => {
+    const jd_start_year = jdFromDate(1, 1, solarYear);
+    const k_start_year = Math.floor((jd_start_year - A) / B);
+    let i = 0;
+    while (true) {
+        let month_jd_start = NewMoon(k_start_year + i);
+        let month_jd_end = NewMoon(k_start_year + i + 1);
+        if (jd >= Math.floor(month_jd_start + 0.5) && jd < Math.floor(month_jd_end + 0.5)) {
+            let lunarMonth = (k_start_year + i) % 12 + 1;
+            let lunarYear = Math.floor((k_start_year + i) / 12) + 1900; // Simplified
+            return { lunarMonth, lunarYear };
+        }
+        i++;
+    }
+  };
 
-  return { lunarDay: Dd, lunarMonth: Lm, lunarYear: Ly, isLeap };
+  const { lunarMonth, lunarYear } = getLunarMonthYear(jd);
+  isLeap = (lunarMonth === getLeapMonth(lunarYear));
+
+  return { lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear, isLeap };
 };
 
 const getCanChi = (dd, mm, yy) => {
@@ -182,41 +186,39 @@ const lunar2solar = (ld, lm, ly, isLeap) => {
   const A = 2415021.076998695;
   const B = 29.530588853;
   let k;
-  let d = 0;
-  let i;
-
+  
   const getLeapMonth = (lunarYear) => {
-    const k = Math.floor(0.5 + (jdFromDate(1, 1, lunarYear) - A) / B) + 12;
-    const M11 = NewMoon(k);
-    const M12 = NewMoon(k + 1);
-    const M13 = NewMoon(k + 2);
-    const L11 = SunLongitude(M11);
-    const L12 = SunLongitude(M12);
-    const L13 = SunLongitude(M13);
-    const numSolarMonths = Math.floor((L13 - L11) / 30);
-    if (numSolarMonths === 1) return 0;
-    for (let i = 0; i < 13; i++) {
-      const Li = SunLongitude(NewMoon(k + i));
-      if (Li > 30 * i && Li < 30 * (i + 1)) return i;
+    const startJd = jdFromDate(1, 1, lunarYear);
+    let kStart = Math.floor((startJd - A) / B);
+    let i = 0;
+    while(true){
+      let month_jdn_start = NewMoon(kStart + i);
+      let month_jdn_end = NewMoon(kStart + i + 1);
+      const l_start = SunLongitude(month_jdn_start);
+      const l_end = SunLongitude(month_jdn_end);
+      if (Math.floor(l_end / 30) === Math.floor(l_start / 30)) {
+        return (i + 1);
+      }
+      i++;
+      if (i > 15) return 0;
     }
-    return 0;
   };
 
   k = Math.floor(0.5 + (jdFromDate(1, 1, ly) - A) / B) + 12;
   const leapMonth = getLeapMonth(ly);
-  let JDN_start = NewMoon(k - 1) + 0.5;
+  let JDN_start;
 
-  if (lm <= leapMonth) {
-    JDN_start = NewMoon(k - 1 + (lm - 1)) + 0.5;
-  } else {
-    JDN_start = NewMoon(k - 1 + lm) + 0.5;
-  }
   if (isLeap && lm === leapMonth) {
     JDN_start = NewMoon(k - 1 + lm) + 0.5;
+  } else if (lm > leapMonth && leapMonth !== 0) {
+    JDN_start = NewMoon(k + lm) + 0.5;
+  } else {
+    JDN_start = NewMoon(k + lm - 1) + 0.5;
   }
 
   return Math.floor(JDN_start + ld - 1);
 };
+
 
 // ============ UI FUNCTIONS ============
 const monthYearLabel = document.getElementById('monthYearLabel');
