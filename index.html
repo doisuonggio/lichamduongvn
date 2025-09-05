@@ -1,139 +1,157 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lịch Âm Dương VN — Xem lịch âm/dương & giờ tốt</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lịch Âm Dương VN — Xem lịch âm/dương & giờ tốt</title>
 
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
-  <!-- SEO / OpenGraph -->
-  <meta name="description" content="Lịch Âm Dương VN — xem lịch âm/dương chuẩn, tháng/năm dạng bảng, giờ tốt, tiết khí, triều cường.">
-  <meta property="og:title" content="Lịch Âm Dương VN"/>
-  <meta property="og:description" content="Xem lịch âm/dương chuẩn, tra cứu ngày, giờ tốt, triều cường.">
-  <meta property="og:image" content="https://lichamduongvn.com/og-image.png" />
-  <meta property="og:type" content="website"/>
+    <meta name="description" content="Lịch Âm Dương VN — xem lịch âm/dương chuẩn, tháng/năm dạng bảng, giờ tốt, tiết khí, triều cường.">
+  <meta property="og:title" content="Lịch Âm Dương VN"/>
+  <meta property="og:description" content="Xem lịch âm/dương chuẩn, tra cứu ngày, giờ tốt, triều cường.">
+  <meta property="og:image" content="https://lichamduongvn.com/og-image.png" />
+  <meta property="og:type" content="website"/>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="page">
-    <header class="topbar">
-      <div class="brand">
-        <img src="favicon-32x32.png" alt="logo" class="logo"/>
-        <div>
-          <h1>Lịch Âm Dương VN</h1>
-          <div class="tag">Chuẩn, nhanh, miễn phí</div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <div id="todayBtn" class="btn small">Hôm nay</div>
-        <div class="btn small" id="subscribeToggle">Đăng ký</div>
-      </div>
-    </header>
+  <div id="page">
+    <header class="topbar">
+      <div class="brand">
+        <img src="favicon-32x32.png" alt="logo" class="logo"/>
+        <div>
+          <h1>Lịch Âm Dương VN</h1>
+          <div class="tag">Chuẩn, nhanh, miễn phí</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div id="todayBtn" class="btn small">Hôm nay</div>
+        <div class="btn small" id="subscribeToggle">Đăng ký</div>
+      </div>
+    </header>
 
-    <main class="layout">
-      <aside class="ad ad-left">
-        <div class="ad-placeholder">Quảng cáo (trái)</div>
-      </aside>
+    <main class="layout">
+      <aside class="ad ad-left">
+        <div class="ad-placeholder">Quảng cáo (trái)</div>
+      </aside>
 
-      <section class="content">
-        <!-- Lịch âm/dương dạng bảng -->
-        <div class="panel">
-          <div class="calendar-header">
-            <div class="nav">
-              <button id="prevMonth" class="btn">‹</button>
-              <div class="month-year" id="monthYearLabel"></div>
-              <button id="nextMonth" class="btn">›</button>
-            </div>
-            <div class="controls">
-              <select id="selectYear"></select>
-              <select id="selectMonth"></select>
-            </div>
-          </div>
-          <div id="calendar" class="calendar-grid"></div>
-        </div>
+      <section class="content">
+                <div class="panel">
+          <div class="calendar-header">
+            <div class="nav">
+              <button id="prevMonth" class="btn">‹</button>
+              <div class="month-year" id="monthYearLabel"></div>
+              <button id="nextMonth" class="btn">›</button>
+            </div>
+            <div class="controls">
+              <select id="selectYear"></select>
+              <select id="selectMonth"></select>
+            </div>
+          </div>
+          <div class="day-names-grid">
+            <div class="day-name">CN</div>
+            <div class="day-name">T2</div>
+            <div class="day-name">T3</div>
+            <div class="day-name">T4</div>
+            <div class="day-name">T5</div>
+            <div class="day-name">T6</div>
+            <div class="day-name">T7</div>
+          </div>
+          <div id="calendar" class="calendar-grid"></div>
+        </div>
 
-        <div id="dayDetail" class="panel detail-panel hidden">
-          <h3 id="detailDate"></h3>
-          <div id="detailLunar"></div>
-          <div id="detailCanChi"></div>
-          <div id="detailTide"></div>
-          <div id="detailNotes"></div>
-          <div class="close-detail btn" id="closeDetail">Đóng</div>
-        </div>
+        <div id="dayDetail" class="panel detail-panel hidden">
+          <h3 id="detailDate"></h3>
+          <div id="detailLunar"></div>
+          <div id="detailCanChi"></div>
+          <div id="detailGoodHours"></div>
+          <div id="detailTide"></div>
+          <div id="detailNotes"></div>
+          <div class="close-detail btn" id="closeDetail">Đóng</div>
+        </div>
 
-        <!-- Khung chuyển đổi Dương ↔ Âm -->
-        <div class="panel convert-panel">
-          <h2>Chuyển đổi ngày tháng</h2>
-          <div class="conversion-tabs">
-            <button id="tabSolar" class="btn small active">Dương → Âm</button>
-            <button id="tabLunar" class="btn small">Âm → Dương</button>
-          </div>
+                <div class="panel convert-panel">
+          <h2>Chuyển đổi ngày tháng</h2>
+          <div class="conversion-tabs">
+            <button id="tabSolar" class="btn small active">Dương → Âm</button>
+            <button id="tabLunar" class="btn small">Âm → Dương</button>
+          </div>
 
-          <div id="solarForm" class="form">
-            <label>Ngày Dương:
-              <input type="date" id="solarDateInput">
-            </label>
-            <button class="btn small" id="convertToLunar">Chuyển đổi</button>
-            <p id="solarResult"></p>
-          </div>
+          <div id="solarForm" class="form">
+            <div class="form-group">
+              <label for="solarDateInput">Ngày Dương:</label>
+              <input type="date" id="solarDateInput">
+            </div>
+            <button class="btn" id="convertToLunar">Chuyển đổi</button>
+            <p id="solarResult" class="result"></p>
+          </div>
 
-          <div id="lunarForm" class="form hidden">
-            <label>Ngày:
-              <input type="number" id="lunarDay" min="1" max="30">
-            </label>
-            <label>Tháng:
-              <input type="number" id="lunarMonth" min="1" max="12">
-            </label>
-            <label>Năm:
-              <input type="number" id="lunarYear" value="2025">
-            </label>
-            <label>
-              <input type="checkbox" id="lunarLeap"> Tháng nhuận
-            </label>
-            <button class="btn small" id="convertToSolar">Chuyển đổi</button>
-            <p id="lunarResult"></p>
-          </div>
-        </div>
+          <div id="lunarForm" class="form hidden">
+            <div class="form-group">
+              <label for="lunarDay">Ngày:</label>
+              <input type="number" id="lunarDay" min="1" max="30">
+            </div>
+            <div class="form-group">
+              <label for="lunarMonth">Tháng:</label>
+              <input type="number" id="lunarMonth" min="1" max="12">
+            </div>
+            <div class="form-group">
+              <label for="lunarYear">Năm:</label>
+              <input type="number" id="lunarYear" value="2025">
+            </div>
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="lunarLeap">
+              <label for="lunarLeap">Tháng nhuận</label>
+            </div>
+            <button class="btn" id="convertToSolar">Chuyển đổi</button>
+            <p id="lunarResult" class="result"></p>
+          </div>
+        </div>
 
-        <!-- Giới thiệu & tính năng -->
-        <div class="panel about">
-          <h2>Giới thiệu</h2>
-          <p>Ứng dụng/website Lịch Âm Dương VN cung cấp lịch âm/dương dạng bảng (toàn tháng), thông tin Can–Chi, giờ tốt cơ bản, tiết khí và triều cường tham khảo cho các trạm Sài Gòn, Cần Thơ, Vũng Tàu.</p>
-          <div class="features">
-            <div class="card"><strong>Âm - Dương</strong><p>Chuyển đổi Dương → Âm, tháng nhuận.</p></div>
-            <div class="card"><strong>Giờ tốt</strong><p>Giờ hoàng đạo cơ bản cho từng ngày.</p></div>
-            <div class="card"><strong>Triều cường</strong><p>Thông tin triều: mẫu cho 3 trạm.</p></div>
-          </div>
-        </div>
+                <div class="panel about">
+          <h2>Giới thiệu</h2>
+          <p>Ứng dụng/website Lịch Âm Dương VN cung cấp lịch âm/dương dạng bảng (toàn tháng), thông tin Can–Chi, giờ tốt cơ bản, tiết khí và triều cường tham khảo cho các trạm Sài Gòn, Cần Thơ, Vũng Tàu.</p>
+          <div class="features">
+            <div class="card">
+              <strong>Âm - Dương</strong>
+              <p>Chuyển đổi Dương → Âm, tháng nhuận.</p>
+            </div>
+            <div class="card">
+              <strong>Giờ tốt</strong>
+              <p>Giờ hoàng đạo cơ bản cho từng ngày.</p>
+            </div>
+            <div class="card">
+              <strong>Triều cường</strong>
+              <p>Thông tin triều: mẫu cho 3 trạm.</p>
+            </div>
+          </div>
+        </div>
 
-        <!-- Subscribe panel -->
-        <div class="panel subscribe-panel hidden" id="subscribePanel">
-          <h3>Nhận thông báo khi app ra mắt</h3>
-          <form id="subscribe-form" action="https://formspree.io/f/mwkzrqkb" method="POST">
-            <input type="email" name="email" placeholder="Email của bạn" required>
-            <button type="submit" class="btn">Đăng ký</button>
-          </form>
-          <p id="subscribeMsg"></p>
-        </div>
-      </section>
+                <div class="panel subscribe-panel hidden" id="subscribePanel">
+          <h3>Nhận thông báo khi app ra mắt</h3>
+          <form id="subscribe-form" action="https://formspree.io/f/mwkzrqkb" method="POST">
+            <input type="email" name="email" placeholder="Email của bạn" required>
+            <button type="submit" class="btn">Đăng ký</button>
+          </form>
+          <p id="subscribeMsg"></p>
+        </div>
+      </section>
 
-      <aside class="ad ad-right">
-        <div class="ad-placeholder">Quảng cáo (phải)</div>
-      </aside>
-    </main>
+      <aside class="ad ad-right">
+        <div class="ad-placeholder">Quảng cáo (phải)</div>
+      </aside>
+    </main>
 
-    <footer class="footer">
-      <div>© 2009–2025 Lịch Âm Dương VN — <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></div>
-      <div class="small">Dữ liệu triều là mẫu. Để có dữ liệu trạm chuẩn, dựa vào hằng số harmonic chính thức.</div>
-    </footer>
-  </div>
+    <footer class="footer">
+      <div>© 2009–2025 Lịch Âm Dương VN — <a href="mailto:doisuonggio17@gmail.com">doisuonggio17@gmail.com</a></div>
+      <div class="small">Dữ liệu triều là mẫu. Để có dữ liệu trạm chuẩn, dựa vào hằng số harmonic chính thức.</div>
+    </footer>
+  </div>
 
-  <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

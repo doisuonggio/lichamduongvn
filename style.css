@@ -1,9 +1,9 @@
 :root{
-  --bg1: #081026;
-  --bg2: #081b2e;
-  --accent: #caa13c; /* vàng đồng */
-  --muted: #9fb0c8;
-  --card: rgba(255,255,255,0.04);
+  --bg1: #081026;
+  --bg2: #081b2e;
+  --accent: #caa13c; /* vàng đồng */
+  --muted: #9fb0c8;
+  --card: rgba(255,255,255,0.04);
 }
 
 *{box-sizing:border-box}
@@ -25,8 +25,8 @@ body{background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);color:#e6f
 
 /* hide ads on small screens */
 @media(max-width:1000px){
-  .layout{grid-template-columns:1fr; padding:16px}
-  .ad{display:none}
+  .layout{grid-template-columns:1fr; padding:16px}
+  .ad{display:none}
 }
 
 /* content */
@@ -34,35 +34,53 @@ body{background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);color:#e6f
 .panel{background:var(--card);border-radius:12px;padding:16px;margin-bottom:18px;box-shadow:0 6px 24px rgba(0,0,0,0.5)}
 .calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .nav{display:flex;align-items:center;gap:8px}
-.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer}
+.controls select{background:var(--card);color:var(--muted);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:6px 10px}
+.btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:6px 10px;border-radius:8px;cursor:pointer;transition:all .18s}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
-.small{padding:6px 8px;font-size:0.9rem}
+.btn.active{background:var(--accent);color:var(--bg2);border-color:var(--accent)}
+.btn.small{padding:6px 8px;font-size:0.9rem}
 
 /* month label */
 .month-year{font-weight:700;font-size:1.1rem}
 
 /* calendar grid */
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day-names-grid, .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
 .day-name{font-size:0.78rem;color:var(--muted);text-align:center;padding:6px 0}
-.day-cell{background:transparent;border-radius:8px;padding:8px;min-height:84px;display:flex;flex-direction:column;justify-content:flex-start;transition:all .18s;border:1px solid rgba(255,255,255,0.02)}
+.day-cell{background:transparent;border-radius:8px;padding:8px;min-height:84px;display:flex;flex-direction:column;justify-content:flex-start;transition:all .18s;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+.day-cell.today{background:rgba(202,161,60,0.12);border-color:var(--accent)}
 .day-cell:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.04)}
+.day-cell.empty{background:transparent;border:none;cursor:default}
 .solar{font-weight:700}
 .lunar{font-size:0.82rem;color:var(--muted);margin-top:6px}
 .badge{display:inline-block;padding:2px 6px;border-radius:6px;background:rgba(202,161,60,0.12);color:var(--accent);font-weight:600;font-size:0.72rem;margin-top:6px}
+.lunar-label{font-size:0.82rem;font-weight:600}
 
 /* detail panel */
 .detail-panel{position:relative}
-.hidden{display:none}
+.detail-panel h3{margin-top:0}
+.hidden{display:none !important}
 .close-detail{display:inline-block;margin-top:12px}
+
+/* conversion form */
+.convert-panel h2{margin-top:0}
+.conversion-tabs{margin-bottom:12px;display:flex;gap:8px}
+.form{display:flex;flex-direction:column;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group input{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+.form-group-checkbox{display:flex;align-items:center;gap:8px}
+.form-group-checkbox input{width:auto}
+.result{margin-top:12px;font-weight:bold;font-size:1.1rem;color:var(--accent)}
 
 /* about / features */
 .about h2{margin-top:0}
-.features{display:flex;gap:12px;margin-top:12px}
+.features{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
 .card{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
 
 /* subscribe */
-.subscribe-panel input[type="email"]{width:70%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+.subscribe-panel form{display:flex;gap:8px;align-items:center}
+.subscribe-panel input[type="email"]{flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
 .subscribe-panel button{padding:8px 12px;margin-left:8px}
 
 /* footer */
 .footer{padding:14px 24px;background:rgba(0,0,0,0.06);text-align:center;color:var(--muted);font-size:0.9rem}
+.footer a{color:var(--accent);text-decoration:none}
